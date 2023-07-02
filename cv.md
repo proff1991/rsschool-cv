@@ -120,3 +120,9 @@ function parserWebsite(link){
 
 ## Experience
 2017 - present: Application development on Google Sheets and Google Apps Script
+
+## Education
+#### Donbas State Technical University
+Ferrous metallurgy, Steelmaker
+* **2009-2013:** bachelor
+* **2013-2014:** master
