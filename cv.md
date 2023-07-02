@@ -126,3 +126,6 @@ function parserWebsite(link){
 Ferrous metallurgy, Steelmaker
 * **2009-2013:** bachelor
 * **2013-2014:** master
+
+## English level
+A2 (Pre-Intermediate) English test result (Test passed on 12.04.2023 in 20 min. by [training.epam.ua](https://training.epam.ua/))
