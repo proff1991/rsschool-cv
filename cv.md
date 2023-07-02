@@ -22,3 +22,98 @@ I have too many hobbies: programming, electronics, music, video games, video edi
 * Adobe Photoshop
 * Adobe Premiere Pro
 * Magix Vegas Pro
+
+## Code example
+### codewars 
+##### Task ["Simple Pig Latin"](https://www.codewars.com/kata/520b9d2ad5c005041100000f/typescript) 
+
+```
+export const pigIt = (a : string) : string =>  {
+  let stringArray = a.split(" ")
+  let newArray = []
+  for (let elem of stringArray){
+    if (/[A-Za-z]/g.test(elem)) {
+      newArray.push(elem.split("").slice(1).join("")+elem[0]+"ay")
+    } else {
+      newArray.push(elem)
+    }
+  }
+  return newArray.join(" ")
+}
+```
+
+##### Google Script with Cheerio library, parser
+```
+const link = "https://unknownwebsite.ua/uk/cellphones/"
+const tableId = "unknownGoogleSheetsId"
+const answerPriceRange = "J1:M"
+const sheetName = "parser"
+const parserResult = []
+const filterType = "?s=price"
+let disabledGoods = ""
+
+
+function goParser(){
+  pageIterrator(link)
+}
+
+function pageIterrator(firstLink){
+
+  SpreadsheetApp.openById( tableId )
+    .getSheetByName( sheetName )
+    .getRange( answerPriceRange )
+    .clearContent();
+
+  parserWebsite(firstLink+filterType)
+
+  for(let i1 = 2; disabledGoods.length < 2; ++i1){
+    parserWebsite(`${firstLink}p${i1}/${filterType}`)
+  }
+
+  SpreadsheetApp.openById( tableId )
+    .getSheetByName( sheetName )
+    .getRange( answerPriceRange + parserResult.length )
+    .setValues( parserResult );
+
+  SpreadsheetApp.flush()
+}
+
+
+function parserWebsite(link){
+
+  let response = UrlFetchApp.fetch(link).getContentText()
+
+  let $ = Cheerio.load(response)
+  let cheerioAnswer
+  let cheerioCode
+  let cheerioName
+  let cheerioPrice
+  let cheerioButton
+
+  for( let i = 0 ; i < 30 ; ++i){
+    cheerioAnswer = Cheerio.load($('div.products-listing-item.details-two-column')
+      .eq([i])
+      .html());
+
+    disabledGoods += cheerioAnswer('span.buy-btn.disabled').text()
+
+    cheerioButton = cheerioAnswer('button.buy-btn').text()
+
+    cheerioCode = cheerioAnswer('div.sku-block')
+      .text()
+      .match(/\d/g)
+      .join('');
+
+    cheerioName = cheerioAnswer('a.name-block')
+      .text().replace(/Смартфон /,"")
+      .replace(/\s\/\s/,"/");
+
+    cheerioPrice = cheerioAnswer('div.regular-price')
+      .text().match(/\d/g)
+      .join('');
+
+    cheerioButton ? parserResult.push([ cheerioCode, cheerioName, cheerioPrice, cheerioButton]) : "";
+  }
+  
+}
+```
