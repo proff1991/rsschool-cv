@@ -14,7 +14,7 @@ I have too many hobbies: programming, electronics, music, video games, video edi
 ## Skills 
 * HTML (basic)
 * CSS (basic)
-* JS (5 kyu codewars)
+* JS (4 kyu codewars)
 * Node.js (basic)
 * Google Apps Script
 * Google Sheets / Microsoft Excell
